@@ -1,0 +1,80 @@
+﻿@model MessManagementSystem.Models.User
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Teacher Dashboard</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .sidebar {
+            height: 100vh;
+            background-color: #212529;
+            color: white;
+            padding: 20px;
+        }
+
+            .sidebar a {
+                color: white;
+                text-decoration: none;
+                display: block;
+                padding: 10px;
+                border-radius: 5px;
+                margin-bottom: 5px;
+            }
+
+                .sidebar a:hover {
+                    background-color: #343a40;
+                }
+
+        .balance-card {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 30px;
+            border-radius: 15px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="d-flex">
+        <div class="sidebar col-md-2">
+            <h4 class="mb-4 text-center">Mess Portal</h4>
+            <a href="/Teacher/Dashboard" class="bg-primary">🏠 Home</a>
+            <a href="/Teacher/MyAttendance">📅 My Attendance</a>
+            <a href="/Teacher/MyBills">💰 My Bills</a>
+            <hr />
+            <a href="/Account/Logout" class="text-danger">🚪 Logout</a>
+        </div>
+
+        <div class="col-md-10 p-5 bg-light">
+            <h2>Welcome, @Model.FullName</h2>
+            <p class="text-muted">Manage your mess account and payments.</p>
+
+            <div class="row mt-4">
+                <div class="col-md-6">
+                    <div class="balance-card shadow">
+                        @if (Model.CurrentBalance < 0)
+                        {
+                            <h4>Advance Balance / Surplus</h4>
+                            <h1 class="display-4 fw-bold text-success">Rs. @(Math.Abs(Model.CurrentBalance ?? 0))</h1>
+                            <p>You have paid in advance. This will cover future bills.</p>
+                        }
+                        else
+                        {
+                            <h4>Current Balance / Dues</h4>
+                            <h1 class="display-4 fw-bold">Rs. @(Model.CurrentBalance ?? 0)</h1>
+                            <p>Total amount you owe to the mess.</p>
+                            <a href="/Teacher/MyBills" class="btn btn-light text-primary fw-bold">Pay Now</a>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>

@@ -1,0 +1,57 @@
+﻿@model IEnumerable<MessManagementSystem.Models.Attendance>
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>My Attendance</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body class="bg-light p-5">
+
+    <div class="container bg-white p-4 shadow rounded" style="max-width: 800px;">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h2>📅 My Attendance History</h2>
+            <a href="/Teacher/Dashboard" class="btn btn-secondary">Back</a>
+        </div>
+
+        <table class="table table-striped">
+            <thead class="table-dark">
+                <tr>
+                    <th>Date</th>
+                    <th>Status</th>
+                    <th>Recorded Time</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td class="fw-bold">@item.AttendanceDate.ToString("dd MMM yyyy (ddd)")</td>
+                        <td>
+                            @if (item.IsPresent == true)
+                            {
+                                <span class="badge bg-success">Present (Ate Food)</span>
+                            }
+                            else
+                            {
+                                <span class="badge bg-secondary">Absent</span>
+                            }
+                        </td>
+                        <td class="text-muted">@item.RecordedAt</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+
+        @if (!Model.Any())
+        {
+            <div class="alert alert-info text-center">No attendance records found.</div>
+        }
+    </div>
+
+</body>
+</html>

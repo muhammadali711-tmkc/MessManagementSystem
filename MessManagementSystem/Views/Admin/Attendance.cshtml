@@ -1,0 +1,76 @@
+﻿@model IEnumerable<MessManagementSystem.Models.User>
+
+@{
+    Layout = null;
+    var presentIds = ViewBag.PresentUserIds as List<int>;
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Mark Attendance</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body class="bg-light">
+
+    <div class="container mt-5" style="max-width: 800px;">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h2>📅 Daily Attendance</h2>
+            <a href="/Admin/Dashboard" class="btn btn-secondary">Back to Dashboard</a>
+        </div>
+
+        @if (ViewBag.Error != null)
+        {
+            <div class="alert alert-danger">
+                @ViewBag.Error <a href="/Admin/AddMenu" class="alert-link">Click here to add Menu.</a>
+            </div>
+        }
+        else
+        {
+            <div class="alert alert-info">
+                <strong>Today's Menu:</strong> @ViewBag.MenuInfo
+            </div>
+
+            <div class="card shadow">
+                <div class="card-body">
+                    <form method="post" action="/Admin/SaveAttendance">
+                        <table class="table table-hover align-middle">
+                            <thead class="table-dark">
+                                <tr>
+                                    <th>Teacher Name</th>
+                                    <th>Status</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var teacher in Model)
+                                {
+                                    <tr>
+                                        <td>
+                                            <span class="fw-bold">@teacher.FullName</span>
+                                            <br />
+                                            <small class="text-muted">@teacher.Email</small>
+                                        </td>
+                                        <td>
+                                            <div class="form-check form-switch">
+                                                <input class="form-check-input" type="checkbox"
+                                                       name="selectedIds"
+                                                       value="@teacher.UserId"
+                                                       style="width: 3em; height: 1.5em;"
+                                                       @(presentIds != null && presentIds.Contains(teacher.UserId) ? "checked" : "")>
+                                                <label class="form-check-label ms-2">Present (Eat)</label>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+
+                        <button type="submit" class="btn btn-success w-100 btn-lg mt-3">💾 Save Today's Attendance</button>
+                    </form>
+                </div>
+            </div>
+        }
+    </div>
+
+</body>
+</html>
