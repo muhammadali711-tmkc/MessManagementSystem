@@ -54,68 +54,6 @@ Secure Authentication: Uses JWT tokens with `HttpOnly` cookies to prevent XSS at
 Role-Based Authorization: Strict middleware checks to prevent Students/Teachers from accessing Admin pages.
 Sensitive Data: Passwords should be hashed (recommended for production).
 
- 📸 Screenshots
-
-
-Login form:
-
-
-
-
-
-Admin Dashboard:
-
- 
-Manage Teachers:
-
-
-
-
-Menu setup:
-
-
-
-
-
- Menu listing:
-
-
-
-
-Teacher attendance:
-
-
-
-
-
-
-Bill generation :
-
-
-
-Bill history:
-
-
-
-
-
-
-Teacher’s Dashboard:
-
-
-
-
-Teacher attendance history:
-
-
-
-
-
-
-Teacher monthly bills and payment:
-
-
-
 
 
 Developed by: [Muhammad Ali (2023-CS-711)]
